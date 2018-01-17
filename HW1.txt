@@ -1,0 +1,96 @@
+library(ggplot2)
+library(readr)
+library(dplyr)
+library(tidyr)
+library(GGally)
+library(tidyverse)
+
+
+#......Reading the data.......
+fev_dat = read.csv("fev.csv")
+print(fev_dat)
+
+# Lets see how the data looks along with the smooth curve...........    
+gg0 = (ggplot(fev_dat, aes(x = ht ,y = fev))
+       + geom_point()
+)
+print(gg0 +geom_smooth()
+      + geom_smooth(method = "lm", col = "red", fill="red")
+      )
+ 
+####............... Comments............(Refer plot gg0.png)................###### ........
+
+#Here, we can see that with the increase in height (which is directly proportional to age, in our case, 
+#as our population consists of kids) the level of FEV increases. Ie, problems related to breathing is more as the kid grows.
+ #The red line shown is produced by fitting a linear model, and the slope which is positive, indicates that there exist a
+ #strong positive correlation between the height and fev. 
+
+
+
+
+
+     
+
+# Lets group the age in 3 categories....(children, adolscents and teenagers) and plot height against the fev..
+fev_dat <- mutate(fev_dat,f_age=cut_number(age,3))
+gg1 <- (ggplot(fev_dat,aes(ht,fev,colour=f_age))
+        + geom_point(aes(shape=f_age),size=4)
+)
+gg2 <- (gg1
+        + geom_smooth(method="lm",
+                      aes(color=f_age,fill=f_age))
+)
+print(gg2)
+      
+
+####........comments......Refer plot gg1.png......####
+
+
+#Here we have grouped age in three categories, and we can see the same results as above
+
+
+
+    
+# boxplot to know the distribution..........  
+
+      ggplot(fev_dat,aes(smoke,fev,group=smoke))+geom_boxplot() + facet_wrap(~sex, labeller = label_both)
+
+
+      
+  #######,................Comments..... Refer plot smoke_fev.png............####
+
+#This is the box plot for the level of fev and smoking habit, between the two genders. 
+#sex(0) indicates the two box plots related to girls in the study. First box plot refers to non smokers and it 
+#shows almost symmetric and the second is for smokers which is negatively skewed. (here by smokers we refer to second-hand
+# smokers).
+#Sex(1) indicates the two box plots related to boys in the study. First box plot refers to non smokers which is 
+#slightly positively skewed and the second is for smokers which is symmetric.
+
+
+
+
+
+  
+ #  grouping the age in 3 categories.... and plot height against the fev seperately.. 
+     
+ print(gg1 + geom_smooth(method = "lm")
+            + facet_wrap(~f_age,labeller=label_both)) 
+
+ #######,................Comments..... Refer plot facet1.png............####
+
+#This graph describes the relationship between the height and fev, here the age is grouped into three categories,
+# 3-9 (children), 9-11 (adolescents) and 11-19 (teenagers). Here, we can see that the slope of age group (11-19)
+# is more of vertical, which shows strong correlation than the other two categories, which is according to John Rauser,
+# when he discusses comparison based on angles/slopes.
+
+      
+ # bar chart for the age.......
+      ggplot(fev_dat, aes(x = age)) +
+        geom_bar() 
+      
+    #######,................Comments..... Refer plot bar.png............####   
+      #This is the bar graph of the age of kids included in the study, which can be considered as slightly skewed
+# towards the right, (positively skewed).
+
+
+      
