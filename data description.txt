@@ -1,0 +1,16 @@
+About the data:
+This data set records are related to respiratory function and smoking for 654 children ages 3 to 19, who
+were seen in the Childhood Respiratory Disease Study in 1980 in East Boston, Massachusetts. 
+“Forced Expiratory Volume” (FEV) is the amount of air a person can exhale in the first second of a forceful breath, 
+and indicates the person’s level of respiratory function. 
+In particular, low FEV values are indicative of breathing problems and onset of asthma or possible respiratory dysfunction. 
+
+The list of variables in the data set:
+Variable Description
+
+age	:  Age of subject in years
+fev	:  FEV, forced expiratory volume (liters)
+ht	:  Height of subject in inches
+sex	:  Gender of subject (male(1) and female(0))
+smoke	:  Current smoking status (non-current smoke(0) and current smoker(1))
+
